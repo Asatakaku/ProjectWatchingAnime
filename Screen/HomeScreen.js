@@ -67,15 +67,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#&HEEEEEE&',
-    alignItems: 'center',
     justifyContent: 'flex-start',
-    padding: 30,
-    marginBottom: 20,
+    padding: 20,
+    marginBottom: 0,
     backgroundColor: '#fff',
   },
   thumbnail: {
     width: '100%',
-    height: 280,
+    height: 250,
     borderWidth: 1,
     borderRadius:20,
   },
@@ -83,12 +82,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 10,
-    textAlign:'center',
+    textAlign:'left',
   },
   videoYoutuber:{
     fontSize: 10,
     fontWeight: '0.5',
-    textAlign: 'left',
+    textAlign:'left',
     marginTop: 5,
   }
 });
