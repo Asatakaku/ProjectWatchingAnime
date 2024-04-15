@@ -1,13 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
+import { RefreshControl, StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../Screen/HomeScreen';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import WatchingScreen from '../Screen/WatchingScreen';
-const Stack = createStackNavigator();
+import FavoriteScreen from '../Screen/FavoriteScreen';
+import { useState } from 'react';
 
+
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const IconBottomTab = (props) => {
@@ -23,13 +26,22 @@ const IconBottomTab = (props) => {
     };
 };
 
+function BottomTab(){
+  return (
+    <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
+      <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false }} />
+      <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Trang chủ', headerShown: false }} />
+    </Tab.Navigator>
+  )
+}
+
 export default function Navigator() {
   return (
     <NavigationContainer>
-        <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
-        <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false }} />
-        <Tab.Screen name='Watch' component={WatchingScreen} options={{ title: 'Coi phim chill', headerShown: false}}/>
-        </Tab.Navigator>
+        <Stack.Navigator>
+        <Stack.Screen name='BottomTab' component={BottomTab} options={{ headerShown: false }} />
+        <Stack.Screen name='Watch' component={WatchingScreen} options={{ headerShown: false }} />
+    </Stack.Navigator>
     </NavigationContainer>
   );
 }
@@ -42,3 +54,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

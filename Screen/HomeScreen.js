@@ -1,28 +1,17 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, RefreshControl, ScrollView } from 'react-native';
 import VideoData  from '../Data/VideoData';
 import Youtuber from '../Data/Youtuber';
 import { Feather } from '@expo/vector-icons';
-export default function HomeScreen() {
+
+
+export default function HomeScreen(props) {
 
   const getYoutuberName = (id) => {
     const youtuber = Youtuber.find(youtuber => youtuber.id === id);
     return youtuber ? youtuber.name : 'Unknown Youtuber';
   }
 
-const renderItem = ({ item }) => (
-  <TouchableOpacity>
-    <View style={styles.container}>
-      <Image 
-          style={styles.thumbnail}
-          source={{uri: item.thumbnail}}
-      />
-      <Text style={styles.videoTitle}>{item.title}</Text>
-      <Text style={styles.videoYoutuber}>{getYoutuberName(item.idYoutuber)}</Text>
-  </View>
-  </TouchableOpacity>
-  )
-  
   const ButtonA = (props) => {
     return (
       <TouchableOpacity
@@ -35,7 +24,6 @@ const renderItem = ({ item }) => (
       
     );
 }
-
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -44,20 +32,48 @@ const shuffleArray = (array) => {
   return array;
   };
   const shuffledData = shuffleArray(VideoData);
+
+
+  const [refresh, setrefresh] = useState(false)
+  const pullMe = () => {
+    setrefresh(true)
+    setTimeout(() => {
+      setrefresh(false)
+    },500)
+  }
+
+
+
   return (
     
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }} >
+        
       <View style={{backgroundColor: '#fff', width: '100%', height: '10%', flexDirection:'row'}}>
       <Image style={{ resizeMode: 'contain', width: '17%', height: 'auto', borderRadius: 50 }} source={require('../img/logo.png')} />
         <Text style={{ marginLeft: '5%', alignSelf: 'center', fontWeight: 'bold', fontSize: 24 }}>My Anime</Text>
         <ButtonA name="search" left='28%' top='5.5%'/>
         <ButtonA name="bell" left='5%' top='5.5%'/>
       </View>
+      <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={()=>pullMe()} />}>
       <FlatList
         data={shuffledData}
-        renderItem={renderItem}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('Watch',{youtubelink: item.youtubelink})}
+          >
+            <View style={styles.container}>
+              <Image 
+                  style={styles.thumbnail}
+                  source={{uri: item.thumbnail}}
+              />
+              <Text style={styles.videoTitle}>{item.title}</Text>
+              <Text style={styles.videoYoutuber}>{getYoutuberName(item.idYoutuber)}</Text>
+          </View>
+          </TouchableOpacity>
+          )}
         keyExtractor={(item) => item.idYoutuber.toString()}
       />
+      </ScrollView>
     </View>
       
   );
