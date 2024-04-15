@@ -8,7 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import WatchingScreen from '../Screen/WatchingScreen';
 import FavoriteScreen from '../Screen/FavoriteScreen';
 import { useState } from 'react';
-
+import { MaterialIcons } from '@expo/vector-icons';
+import Playlist from '../Component/Playlist';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,9 +20,14 @@ const IconBottomTab = (props) => {
             let iconName;
             if (props.route.name === 'Home') {
                 iconName = focused ? 'home' : 'home';
+             return <FontAwesome5 name={iconName} size={size} color={color} />;
+        }
+            else if (props.route.name === 'Favorite') {
+              iconName = focused ? 'favorite' : 'favorite-border'
+              return <MaterialIcons name="favorite-border" size={size} color={color} />;
                 
-            }
-            return <FontAwesome5 name={iconName} size={size} color={color} />;
+        }
+            
         }
     };
 };
@@ -30,7 +36,7 @@ function BottomTab(){
   return (
     <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
       <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false }} />
-      <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Trang chủ', headerShown: false }} />
+      <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Yêu thích', headerShown: false }} />
     </Tab.Navigator>
   )
 }
@@ -38,7 +44,7 @@ function BottomTab(){
 export default function Navigator() {
   return (
     <NavigationContainer>
-        <Stack.Navigator>
+      <Stack.Navigator>
         <Stack.Screen name='BottomTab' component={BottomTab} options={{ headerShown: false }} />
         <Stack.Screen name='Watch' component={WatchingScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
