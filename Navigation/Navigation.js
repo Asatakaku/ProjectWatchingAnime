@@ -1,0 +1,38 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeScreen from '../Screen/HomeScreen';
+import { FontAwesome5 } from '@expo/vector-icons';
+const Tab = createBottomTabNavigator();
+
+const IconBottomTab = (props) => {
+    return {
+        tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (props.route.name === 'Home') {
+                iconName = focused ? 'home' : 'home';
+                
+            }
+            return <FontAwesome5 name={iconName} size={size} color={color} />;
+        }
+    };
+};
+
+export default function Navigator() {
+  return (
+    <NavigationContainer>
+        <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
+            <Tab.Screen name='Home' component={HomeScreen} />
+        </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
