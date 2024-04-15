@@ -48,7 +48,7 @@ const shuffleArray = (array) => {
     
     <View style={{flex: 1}}>
       <View style={{backgroundColor: '#fff', width: '100%', height: '10%', flexDirection:'row'}}>
-      <Image style={{ resizeMode: 'contain', width: '17%', height: 'auto', borderRadius: 50 }} source={require('../img/logo.jpg')} />
+      <Image style={{ resizeMode: 'contain', width: '17%', height: 'auto', borderRadius: 50 }} source={require('../img/logo.png')} />
         <Text style={{ marginLeft: '5%', alignSelf: 'center', fontWeight: 'bold', fontSize: 24 }}>My Anime</Text>
         <ButtonA name="search" left='28%' top='5.5%'/>
         <ButtonA name="bell" left='5%' top='5.5%'/>
