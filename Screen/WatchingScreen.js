@@ -28,7 +28,7 @@ export default function WatchingScreen(props) {
       <View style={styles.border}>
         <Image style={{height: '100%', width: '10%', borderRadius: 20, alignSelf:'center', marginLeft: '2%', resizeMode: 'center'}} source={{uri: youtuber.icon}} />
         <Text style={[styles.text, { marginLeft: '3%', alignSelf: 'center' }]}>{youtuber.name}</Text>
-        <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: '16%', fontWeight: 'bold' }}>{youtuber.subcriber}</Text>
+        <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: 40, fontWeight: 'bold' }}>{youtuber.subcriber}</Text>
         <TouchableOpacity style={{borderRadius: 20, backgroundColor: 'red', height: 40, width: 120, marginLeft:'5%', alignSelf: 'center'}}>
             <Text style={{textAlign:'center', marginTop: 8, fontWeight: 'bold'}}>Đăng ký</Text>
         </TouchableOpacity>
