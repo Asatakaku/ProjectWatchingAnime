@@ -3,6 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../Screen/HomeScreen';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
+
 const Tab = createBottomTabNavigator();
 
 const IconBottomTab = (props) => {
@@ -22,7 +26,7 @@ export default function Navigator() {
   return (
     <NavigationContainer>
         <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
-            <Tab.Screen name='Home' component={HomeScreen} />
+          <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false}}/>
         </Tab.Navigator>
     </NavigationContainer>
   );
