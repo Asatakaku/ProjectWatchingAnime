@@ -1,38 +1,32 @@
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 import VideoData  from '../Data/VideoData';
 import Youtuber from '../Data/Youtuber';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 const getYoutuberName = (id) => {
     const youtuber = Youtuber.find(youtuber => youtuber.id === id);
     return youtuber ? youtuber.name : 'Unknown Youtuber';
 };
 
-const Playlist = (props) => {
-    const flatListRef = useRef(null);
-    const [savedData, setSavedData] = useState({}); 
-    const saveStateBeforeTabChange = () => {
-        const offset = flatListRef.current ? flatListRef.current.contentOffset.y : 0;
-        setSavedData({ offset, data: VideoData });
-    };
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+};
 
-    const restoreStateAfterTabChange = () => {
-        if (flatListRef.current && savedData.offset) {
-            flatListRef.current.scrollToOffset({ offset: savedData.offset, animated: false });
-        }
-    };
 
-    // Lắng nghe sự kiện khi component unmount
-    useEffect(() => {
-        return () => {
-            saveStateBeforeTabChange();
-        };
-    }, []);
 
+
+export default function Playlist(props) {
+    
+   
+const shuffledData = shuffleArray(VideoData);
     return (
         <FlatList
-            ref={flatListRef}
-            data={savedData.data || VideoData}
+            data={shuffledData}
+            keyExtractor={(item) => item.keyvideo.toString()}
             renderItem={({ item }) => (
                 <TouchableOpacity
                     onPress={() => props.navigation.navigate('Watch', { youtubelink: item.youtubelink })}
@@ -47,7 +41,7 @@ const Playlist = (props) => {
                     </View>
                 </TouchableOpacity>
             )}
-            keyExtractor={(item) => item.idYoutuber.toString()}
+            
         />
     );
 };
@@ -79,4 +73,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Playlist;
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
 import VideoData  from '../Data/VideoData';
 import Youtuber from '../Data/Youtuber';
 import { Feather } from '@expo/vector-icons';
@@ -18,7 +18,8 @@ export default function HomeScreen(props) {
         </TouchableOpacity>
       
     );
-}
+  }
+  
   return (
     
     <View style={{ flex: 1 }} >
@@ -29,7 +30,7 @@ export default function HomeScreen(props) {
         <ButtonA name="search" left='28%' top='5.5%'/>
         <ButtonA name="bell" left='5%' top='5.5%'/>
       </View>
-      <Playlist navigation={ props.navigation} />
+          <Playlist navigation={ props.navigation} />
     </View>
       
   );
