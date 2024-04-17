@@ -29,7 +29,7 @@ const shuffledData = shuffleArray(VideoData);
             keyExtractor={(item) => item.keyvideo.toString()}
             renderItem={({ item }) => (
                 <TouchableOpacity
-                    onPress={() => props.navigation.navigate('Watch', { youtubelink: item.youtubelink })}
+                    onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo })}
                 >
                     <View style={styles.container}>
                         <Image

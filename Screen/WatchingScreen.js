@@ -1,21 +1,35 @@
 import { StyleSheet, Button, View, Text, Image, TouchableOpacity, FlatList } from "react-native";
-import React from 'react';
+import React, {useState} from 'react';
 import YoutubePlayer from "react-native-youtube-iframe";
 import VideoData from "../Data/VideoData";
 import Youtuber from "../Data/Youtuber";
 import Playlist from "../Component/Playlist";
 import { AntDesign } from '@expo/vector-icons';
+import { giamLike, tangLike } from "../Slice/Slice";
+import { useDispatch, useSelector } from "react-redux";
 export default function WatchingScreen(props) {
-  const { youtubelink } = props.route.params
-  const link = VideoData.find(item => item.youtubelink === youtubelink)
+ const { keyvideo } = props.route.params
+  const link = VideoData.find(item => item.keyvideo === keyvideo)
   const cutLink = link.youtubelink.substring(17, 28).toString()
   const youtuber = Youtuber.find(item => item.id === link.idYoutuber)
+  const keySlice = useSelector(state => state.soLike.keyvideo)
+  let like = link.like
+  
   const ButtonReact = (props) => {
+    const likeDi = useSelector(state => state.soLike.numLike)
+    const dispatch = useDispatch();
     return (
-      <TouchableOpacity style={{flexDirection:'row'}}>
+        <TouchableOpacity style={{ flexDirection: 'row' }}
+        onPress={() => {
+          dispatch(tangLike({keySlice: keySlice}));
+          like = likeDi;
+        }
+          }
+        >
         <AntDesign name={props.icon} size={24} color="black" />
-        <Text style={{marginLeft: 20}}>{ props.like}</Text>
+        <Text style={{marginLeft: 20}}>{props.like}</Text>
       </TouchableOpacity>
+      
     );
   }
   return (
@@ -27,7 +41,7 @@ export default function WatchingScreen(props) {
       />
       <Text style={styles.text}>{link.title}</Text>
       <View style={styles.border}>
-        <ButtonReact icon="like2" like={link.like} />
+        <ButtonReact icon="like2" like={like} />
       </View>
       <View style={styles.border}>
         <Image style={{height: 50, width: 50, borderRadius: 20, alignSelf:'center', marginLeft: 5, resizeMode: 'center'}} source={{uri: youtuber.icon}} />
