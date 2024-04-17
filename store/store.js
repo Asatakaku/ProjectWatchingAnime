@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import likeSlice from '../Slice/Slice'
 const store = configureStore({
     reducer: {
-        soLike: likeSlice
+        Slice: likeSlice
     }
 })
 export default store;

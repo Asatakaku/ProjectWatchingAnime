@@ -12,23 +12,34 @@ export default function WatchingScreen(props) {
   const link = VideoData.find(item => item.keyvideo === keyvideo)
   const cutLink = link.youtubelink.substring(17, 28).toString()
   const youtuber = Youtuber.find(item => item.id === link.idYoutuber)
-  const keySlice = useSelector(state => state.soLike.keyvideo)
-  let like = link.like
-  
+  const keySlice = useSelector(state => state.Slice.keyvideo = keyvideo)
+  const likeDi = useSelector(state => state.Slice.numLike)
+  const [isLiked, setisLiked] = useState(false)
+  const [icon, setIcon] = useState("like2")
   const ButtonReact = (props) => {
-    const likeDi = useSelector(state => state.soLike.numLike)
+
     const dispatch = useDispatch();
     return (
-        <TouchableOpacity style={{ flexDirection: 'row' }}
+        <TouchableOpacity style={{flexDirection: 'row'}}
         onPress={() => {
-          dispatch(tangLike({keySlice: keySlice}));
-          like = likeDi;
+          if (!isLiked) {
+            dispatch(tangLike({ keySlice: keySlice }));
+            setisLiked(true)
+            setIcon("like1")
+          }
+          else if (isLiked) {
+            dispatch(giamLike({ keySlice: keySlice }))
+            setisLiked(false)
+            setIcon("like2")
+          }
         }
           }
-        >
+      >
+        
         <AntDesign name={props.icon} size={24} color="black" />
-        <Text style={{marginLeft: 20}}>{props.like}</Text>
-      </TouchableOpacity>
+        <Text style={{ marginLeft: 20 }}>{ props.like}</Text>
+        </TouchableOpacity>
+        
       
     );
   }
@@ -41,7 +52,8 @@ export default function WatchingScreen(props) {
       />
       <Text style={styles.text}>{link.title}</Text>
       <View style={styles.border}>
-        <ButtonReact icon="like2" like={like} />
+        <ButtonReact icon={icon} like={ likeDi} />
+        
       </View>
       <View style={styles.border}>
         <Image style={{height: 50, width: 50, borderRadius: 20, alignSelf:'center', marginLeft: 5, resizeMode: 'center'}} source={{uri: youtuber.icon}} />

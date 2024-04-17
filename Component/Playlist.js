@@ -50,7 +50,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        padding: 20,
+        elevation: 4,
+        margin: 10,
+        padding: 10,
         backgroundColor: '#fff',
     },
     thumbnail: {

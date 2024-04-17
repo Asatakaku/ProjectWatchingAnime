@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Youtuber from "../Data/Youtuber";
 
 const ThongTinDienVao = ({ text, placeholder, onChangeText, value }) => {
@@ -41,7 +41,10 @@ export default function LoginScreen(props) {
           if (youtuber) {         
             props.navigation.navigate('BottomTab', { id: youtuber.id });
             console.log('dumedcroi')
-                }
+          }
+          else {
+            alert('Tài khoản không khớp!')
+          }
               }}
               style={styles.button}>
               <Text style={{textAlign:'center', fontWeight:'bold'}}>Đăng nhập</Text>

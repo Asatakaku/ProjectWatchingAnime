@@ -1,4 +1,4 @@
-const VideoData = [
+let VideoData = [
     {
         idYoutuber: 1, title: 'Chào mừng đến với lớp học đề cao thực lực S3 - Tập 01 [Việt sub]',
         keyvideo: 'youkosos3e1',
@@ -191,4 +191,6 @@ const VideoData = [
     
 ]
 
+
 export default VideoData;
+

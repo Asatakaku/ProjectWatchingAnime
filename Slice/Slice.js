@@ -2,25 +2,34 @@ import { createSlice } from '@reduxjs/toolkit';
 import VideoData from '../Data/VideoData';
 
 
+
 const likeSlice = createSlice({
-    name: 'soLike',
+    name: 'Slice',
     initialState: {
         keyvideo:'',
         numLike: 0,
-        videoarr: VideoData
+        videoarr: VideoData,
+        userFavorite:[]
     },
     reducers: {
         tangLike: (state, action) => {
             const { keySlice } = action.payload;
-            const newdata = state.videoarr.find(video => video.keyvideo === keySlice);
+            let newdata = state.videoarr.findIndex(video => video.keyvideo === keySlice);
             if (newdata) {
-                newdata.like += 1;
-                state.numLike = newdata.like;
+                state.videoarr[newdata].like += 1
+                state.numLike = state.videoarr[newdata].like;
+                
             }
             
         },
-        giamLike: state => {
-            state.numLike -=1
+        giamLike: (state, action) => {
+            const { keySlice } = action.payload;
+            let newdata = state.videoarr.findIndex(video => video.keyvideo === keySlice);
+            if (newdata) {
+                state.videoarr[newdata].like -= 1
+                state.numLike = state.videoarr[newdata].like;
+                
+            }
         }
     }
 })
