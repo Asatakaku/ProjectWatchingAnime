@@ -8,29 +8,30 @@ import { AntDesign } from '@expo/vector-icons';
 import { giamLike, tangLike } from "../Slice/Slice";
 import { useDispatch, useSelector } from "react-redux";
 export default function WatchingScreen(props) {
- const { keyvideo } = props.route.params
+  const { keyvideo, idyoutuber } = props.route.params
   const link = VideoData.find(item => item.keyvideo === keyvideo)
   const cutLink = link.youtubelink.substring(17, 28).toString()
   const youtuber = Youtuber.find(item => item.id === link.idYoutuber)
   const keySlice = useSelector(state => state.Slice.keyvideo = keyvideo)
-  const likeDi = useSelector(state => state.Slice.numLike)
   const [isLiked, setisLiked] = useState(false)
+  const likeSelector = useSelector(state => state.Slice.like.numLike)
   const [icon, setIcon] = useState("like2")
   const ButtonReact = (props) => {
-
     const dispatch = useDispatch();
     return (
         <TouchableOpacity style={{flexDirection: 'row'}}
         onPress={() => {
           if (!isLiked) {
-            dispatch(tangLike({ keySlice: keySlice }));
+            dispatch(tangLike({ keySlice: keyvideo, userid: idyoutuber }));
             setisLiked(true)
             setIcon("like1")
+            
           }
           else if (isLiked) {
-            dispatch(giamLike({ keySlice: keySlice }))
+            dispatch(giamLike({ keySlice: keySlice, userid: idyoutuber }))
             setisLiked(false)
             setIcon("like2")
+            
           }
         }
           }
@@ -52,7 +53,7 @@ export default function WatchingScreen(props) {
       />
       <Text style={styles.text}>{link.title}</Text>
       <View style={styles.border}>
-        <ButtonReact icon={icon} like={ likeDi} />
+        <ButtonReact icon={icon} like={likeSelector} />
         
       </View>
       <View style={styles.border}>

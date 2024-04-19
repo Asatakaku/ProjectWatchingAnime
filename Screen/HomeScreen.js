@@ -23,7 +23,6 @@ export default function HomeScreen(props) {
       
     );
   }
-
   return (
     
     <View style={{ flex: 1 }} >
@@ -34,8 +33,8 @@ export default function HomeScreen(props) {
         <ButtonA name="bell" left='5%' top='5.5%' />
         <Image style={{width: '17%', height: 50, right: '5%', marginTop: 15, resizeMode: 'contain'}} source={{uri: link.icon}} />
       </View>
-      <Playlist navigation={ props.navigation} />
-          
+      <Playlist navigation={props.navigation} idyoutuber={ idyoutuber} />
+      
     </View>
       
   );

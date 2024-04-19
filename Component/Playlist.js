@@ -20,7 +20,8 @@ const shuffleArray = (array) => {
 
 
 export default function Playlist(props) {
-    
+
+const {idyoutuber} = props
    
 const shuffledData = shuffleArray(VideoData);
     return (
@@ -29,7 +30,7 @@ const shuffledData = shuffleArray(VideoData);
             keyExtractor={(item) => item.keyvideo.toString()}
             renderItem={({ item }) => (
                 <TouchableOpacity
-                    onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo })}
+                    onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo, idyoutuber: idyoutuber })}
                 >
                     <View style={styles.container}>
                         <Image

@@ -13,7 +13,8 @@
   import Slice from '../Slice/Slice';
   import LoginScreen from '../Screen/LoginScreen';
 import Youtuber from '../Data/Youtuber';
-
+import SearchScreen from '../Screen/SearchScreen';
+import { AntDesign } from '@expo/vector-icons';
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -29,8 +30,9 @@ import Youtuber from '../Data/Youtuber';
                 iconName = focused ? 'favorite' : 'favorite-border'
                 return <MaterialIcons name="favorite-border" size={size} color={color} />;
           }
-              else  if (props.route.name === 'Login') {
-                return null;
+              else  if (props.route.name === 'user') {
+                iconName = focused ? 'user' : 'user'
+                return <AntDesign name="user" size={24} color="black" />;
               }
               
           }
@@ -46,6 +48,7 @@ const BottomTab = (props) => {
         <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
           <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false}} initialParams={{idyoutuber: id }} />
           <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Yêu thích', headerShown: false }} />
+          <Tab.Screen name='user' component={FavoriteScreen} options={{ title: 'Thông Tin Cá Nhân', headerShown: false }} />
         </Tab.Navigator>
       )
     }
@@ -55,7 +58,8 @@ const BottomTab = (props) => {
           <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name='BottomTab' component={BottomTab} options={{ headerShown: false }} />
           <Stack.Screen name='Watch' component={WatchingScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Playlist' component={Playlist} options={{ headerShown: false }} />  
+          <Stack.Screen name='Playlist' component={Playlist} options={{ headerShown: false }} />
+          <Stack.Screen name='Search' component={SearchScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
       </NavigationContainer>
     );
