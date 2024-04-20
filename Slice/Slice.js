@@ -16,40 +16,59 @@ const likeSlice = createSlice({
     initialState: {
         keyvideo: '',
         videoarr: VideoData,
-        like: {
-            numLike: 0,
-            defaultlike: 0,
-        },
+        numLike: 0,
         favoritevideos: [],
+        subcribes: [],
     },
 
     reducers: {
         tangLike: (state, action) => {
             const { keySlice, userid } = action.payload;
             const newdataIndex = state.videoarr.findIndex(video => video.keyvideo === keySlice);
-            const existedfar = state.favoritevideos.findIndex(item => item.keyvideo === keySlice)
+            const existedfar = state.favoritevideos.findIndex(item => item.keyvideo === keySlice && item.userid === userid)
+            state.keyvideo = keySlice
             if (newdataIndex !== -1 && existedfar === -1) {
                 state.videoarr[newdataIndex].like += 1
-                state.like.numLike = state.videoarr[newdataIndex].like;
+                state.numLike = state.videoarr[newdataIndex].like;
                 state.favoritevideos.push({ ...state.videoarr[newdataIndex], userid: userid, idfav: generateRandomString(12) });
-                // data.setFavoriteData(state.favoritevideos)
-                // console.log(data.getFavoriteData())
+                
+                console.log(state.favoritevideos)
             }
             
         },
         giamLike: (state, action) => {
             const { keySlice, userid } = action.payload;
             const newdata = state.videoarr.findIndex(video => video.keyvideo === keySlice);
-            const existedfar = state.favoritevideos.findIndex(item => item.keyvideo === keySlice)
+            const existedfar = state.favoritevideos.findIndex(item => item.keyvideo === keySlice && item.userid === userid)
+            state.keyvideo = keySlice
             if (newdata !== -1 && existedfar !== -1) {
                 state.videoarr[newdata].like -= 1
-                state.like.numLike = state.videoarr[newdata].like;
-                state.favoritevideos = state.favoritevideos.filter(item => (item.keyvideo !== state.videoarr[newdata].keyvideo) && item.userid === userid)
+                state.numLike = state.videoarr[newdata].like;
+                state.favoritevideos = state.favoritevideos.filter(item => item.keyvideo !== state.videoarr[newdata].keyvideo && item.userid === userid)
+                
                 // data.setFavoriteData(state.favoritevideos)
                 // console.log(data.getFavoriteData())
+                console.log(state.favoritevideos)
+            }
+        },
+        subscribe: (state, action) => {
+            const { userid, youtuberid } = action.payload;
+            const issubscribe = state.subcribes.findIndex(item => item.userid === userid && item.youtuberid === youtuberid);
+            if (issubscribe === -1) {
+                state.subcribes.push({ userid, youtuberid });
+                console.log(state.subcribes)
+            }
+            
+        },
+        notsubscribe: (state, action) => {
+            const { userid, youtuberid } = action.payload;
+            const issubscribe = state.subcribes.findIndex(item => item.userid === userid && item.youtuberid === youtuberid)
+            if (issubscribe !== -1) {
+                state.subcribes = state.subcribes.filter(item => item.userid !== userid && item.youtuberid !== youtuberid)
+                console.log(state.subcribes)
             }
         }
     }
 })
 export default likeSlice.reducer
-export const { tangLike, giamLike } = likeSlice.actions
+export const { tangLike, giamLike, subscribe, notsubscribe } = likeSlice.actions

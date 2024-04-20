@@ -130,6 +130,7 @@ const VideoData = [
         keyvideo: 'sokushie6',
         youtubelink: 'https://youtu.be/8TiGPyLTU_I?si=VAhQgyRYG8e4mwe3',
         thumbnail: 'https://i.ytimg.com/vi/8TiGPyLTU_I/maxresdefault.jpg',
+        like: 5690,
     },
     {
         idYoutuber: 1, title: 'Năng lực một câu chết luôn của tôi quá bá đạo nên vô đối ở dị giới - Tập 07 [Việt sub]',

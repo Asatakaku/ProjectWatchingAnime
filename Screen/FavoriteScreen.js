@@ -11,26 +11,30 @@ const getYoutuberName = (id) => {
 
 export default function FavoriteScreen(props) {
     const listfav = useSelector(state => state.Slice.favoritevideos)
-
+    const { userid } = props.route.params
+    const filteredList = listfav.filter(item => item.userid === userid);
     return (
         <FlatList
             style={{top: 50}}
-            data={listfav}
+            data={filteredList}
             keyExtractor={(item) => item.idfav.toString()}
-            renderItem={({ item }) => (
-                <TouchableOpacity
-                    onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo, idyoutuber: item.idYoutuber })} // Sử dụng item.idYoutuber thay vì idyoutuber
-                >
-                    <View style={styles.container}>
-                        <Image
-                            style={styles.thumbnail}
-                            source={{ uri: item.thumbnail }}
-                        />
-                        <Text style={styles.videoTitle}>{item.title}</Text>
-                        <Text style={styles.videoYoutuber}>{getYoutuberName(item.idYoutuber)}</Text>
-                    </View>
-                </TouchableOpacity>
-            )}
+            renderItem={({ item }) =>
+                (
+                    <TouchableOpacity
+                        onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo, idyoutuber: item.idYoutuber })} // Sử dụng item.idYoutuber thay vì idyoutuber
+                    >
+                        <View style={styles.container}>
+                            <Image
+                                style={styles.thumbnail}
+                                source={{ uri: item.thumbnail }}
+                            />
+                            <Text style={styles.videoTitle}>{item.title}</Text>
+                            <Text style={styles.videoYoutuber}>{getYoutuberName(item.idYoutuber)}</Text>
+                        </View>
+                    </TouchableOpacity>
+                )
+            }
+            
         />
     );
 }

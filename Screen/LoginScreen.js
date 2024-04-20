@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
 import Youtuber from "../Data/Youtuber";
 
-const ThongTinDienVao = ({ text, placeholder, onChangeText, value }) => {
+const ThongTinDienVao = ({ text, placeholder, onChangeText, value, bool }) => {
   return (
       <View style={{ padding: 20, flexDirection: 'row', gap: 20, alignItems:'center', justifyContent:'flex-end' }}>
       <Text style={{ fontSize: 22 }}>{text}</Text>
@@ -11,6 +11,7 @@ const ThongTinDienVao = ({ text, placeholder, onChangeText, value }) => {
         placeholder={placeholder}
         onChangeText={onChangeText}
         value={value}
+        secureTextEntry={bool}
       />
     </View>
   );
@@ -21,6 +22,7 @@ export default function LoginScreen(props) {
   const [password, setPassword] = useState('');
   return (
     <View style={styles.container}>
+      <Image style={styles.image} source={ require('../img/logo.png')} />
       <Text style={styles.loginWord}>Login</Text>
       <ThongTinDienVao
         text='Tên tài khoản'
@@ -33,6 +35,7 @@ export default function LoginScreen(props) {
               placeholder={'Mật khẩu'}
               onChangeText={setPassword}
               value={password}
+              bool={true}
           />
 
           <TouchableOpacity
@@ -40,7 +43,7 @@ export default function LoginScreen(props) {
           const youtuber = Youtuber.find(item => item.username === username && item.password === password)
           if (youtuber) {         
             props.navigation.navigate('BottomTab', { id: youtuber.id });
-            console.log('dumedcroi')
+            console.log('dang nhap thanh cong')
           }
           else {
             alert('Tài khoản không khớp!')
@@ -82,5 +85,12 @@ const styles = StyleSheet.create({
       marginRight: 20,
       borderRadius: 5,
       backgroundColor: 'red'
+  },
+  image: {
+    height: 100,
+    width: 100,
+    alignSelf: 'center',
+    borderRadius: 25,
+    bottom: 30
   }
 });

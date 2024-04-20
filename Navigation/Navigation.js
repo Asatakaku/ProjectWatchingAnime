@@ -46,8 +46,8 @@ const BottomTab = (props) => {
   const {id} = props.route.params
       return (
         <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
-          <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false}} initialParams={{idyoutuber: id }} />
-          <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Yêu thích', headerShown: false }} />
+          <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false}} initialParams={{userid: id }} />
+          <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Yêu thích', headerShown: false }} initialParams={{userid: id }}/>
           <Tab.Screen name='user' component={FavoriteScreen} options={{ title: 'Thông Tin Cá Nhân', headerShown: false }} />
         </Tab.Navigator>
       )

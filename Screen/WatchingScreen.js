@@ -5,33 +5,48 @@ import VideoData from "../Data/VideoData";
 import Youtuber from "../Data/Youtuber";
 import Playlist from "../Component/Playlist";
 import { AntDesign } from '@expo/vector-icons';
-import { giamLike, tangLike } from "../Slice/Slice";
+import { giamLike, tangLike, subscribe, notsubscribe } from "../Slice/Slice";
 import { useDispatch, useSelector } from "react-redux";
 export default function WatchingScreen(props) {
-  const { keyvideo, idyoutuber } = props.route.params
+  const { keyvideo, userid } = props.route.params
+//youtuber va video
   const link = VideoData.find(item => item.keyvideo === keyvideo)
   const cutLink = link.youtubelink.substring(17, 28).toString()
   const youtuber = Youtuber.find(item => item.id === link.idYoutuber)
-  const keySlice = useSelector(state => state.Slice.keyvideo = keyvideo)
+//user: like
+  const keySlice = useSelector(state => state.Slice.keyvideo)
   const [isLiked, setisLiked] = useState(false)
-  const likeSelector = useSelector(state => state.Slice.like.numLike)
+  const likeSelector = useSelector(state => state.Slice.numLike)
   const [icon, setIcon] = useState("like2")
+ //user: subscribe
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const dispatch = useDispatch();
+  const handlePress = () => {
+    setIsSubscribed(prevState => !prevState);
+    
+    if (!isSubscribed) {
+      dispatch(subscribe({userid: userid, youtuberid: youtuber.id}))
+    }
+    else if(isSubscribed) {
+      dispatch(notsubscribe({userid: userid, youtuberid: youtuber.id}))
+    }
+  };
+
+
   const ButtonReact = (props) => {
-    const dispatch = useDispatch();
     return (
         <TouchableOpacity style={{flexDirection: 'row'}}
         onPress={() => {
           if (!isLiked) {
-            dispatch(tangLike({ keySlice: keyvideo, userid: idyoutuber }));
+            dispatch(tangLike({ keySlice: keyvideo, userid: userid }));
             setisLiked(true)
             setIcon("like1")
             
           }
           else if (isLiked) {
-            dispatch(giamLike({ keySlice: keySlice, userid: idyoutuber }))
+            dispatch(giamLike({ keySlice: keySlice, userid: userid }))
             setisLiked(false)
             setIcon("like2")
-            
           }
         }
           }
@@ -52,20 +67,24 @@ export default function WatchingScreen(props) {
         videoId={cutLink}
       />
       <Text style={styles.text}>{link.title}</Text>
-      <View style={styles.border}>
+      <View style={[styles.border, {justifyContent:'center'}]}>
         <ButtonReact icon={icon} like={likeSelector} />
-        
       </View>
-      <View style={styles.border}>
+      <View style={[styles.border, {justifyContent:'flex-start'}]}>
         <Image style={{height: 50, width: 50, borderRadius: 20, alignSelf:'center', marginLeft: 5, resizeMode: 'center'}} source={{uri: youtuber.icon}} />
-        <Text style={[styles.text, { marginLeft: 20, alignSelf: 'center' }]}>{youtuber.name}</Text>
+        <Text style={[styles.text, { marginLeft: 20, alignSelf: 'center', }]}>{youtuber.name}</Text>
         <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: 30, fontWeight: 'bold' }}>{youtuber.subcriber}</Text>
-        <TouchableOpacity style={{borderRadius: 20, backgroundColor: 'red', height: 40, width: 120, marginLeft:30, alignSelf: 'center'}}>
-            <Text style={{textAlign:'center', marginTop: 8, fontWeight: 'bold'}}>Đăng ký</Text>
-        </TouchableOpacity>
+        {userid !== youtuber.id && (
+          <TouchableOpacity
+            onPress={handlePress}
+            style={[styles.button, { backgroundColor: isSubscribed ? 'white' : 'red' }]}>
+            <Text style={{ textAlign: 'center', marginTop: 8, fontWeight: 'bold', color: isSubscribed ? 'red' : 'white' }}>
+        {isSubscribed ? 'Đã đăng ký' : 'Đăng ký'}</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.border}>
-        <Playlist navigation={props.navigation}/>
+        <Playlist navigation={props.navigation} userid={ userid}/>
       </View>
     </View>
   );
@@ -91,9 +110,17 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 10,
     flexDirection: 'row',
-    justifyContent:'space-around'
+    
   },
   image: {
     height: '2%',
+  },
+  button: {
+    borderRadius: 20,
+    backgroundColor: 'red',
+    height: 40,
+    width: 120,
+    marginLeft: 30,
+    alignSelf: 'center'
   }
 })

@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, RefreshContr
 import VideoData  from '../Data/VideoData';
 import Youtuber from '../Data/Youtuber';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const getYoutuberName = (id) => {
     const youtuber = Youtuber.find(youtuber => youtuber.id === id);
@@ -21,7 +22,7 @@ const shuffleArray = (array) => {
 
 export default function Playlist(props) {
 
-const {idyoutuber} = props
+    const { userid } = props
    
 const shuffledData = shuffleArray(VideoData);
     return (
@@ -30,7 +31,7 @@ const shuffledData = shuffleArray(VideoData);
             keyExtractor={(item) => item.keyvideo.toString()}
             renderItem={({ item }) => (
                 <TouchableOpacity
-                    onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo, idyoutuber: idyoutuber })}
+                    onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo, userid: userid })}
                 >
                     <View style={styles.container}>
                         <Image
