@@ -16,10 +16,19 @@ export default function WatchingScreen(props) {
 //user: like
   const keySlice = useSelector(state => state.Slice.keyvideo)
   const [isLiked, setisLiked] = useState(false)
-  const likeSelector = useSelector(state => state.Slice.numLike)
-  const [icon, setIcon] = useState("like2")
- //user: subscribe
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const videoarr = useSelector(state => state.Slice.videoarr)
+  const videofav = useSelector(state => state.Slice.favoritevideos)
+  //user: subscribe
+ 
+  const subscribes = useSelector(state => state.Slice.subcribes)
+  const youtubearr = useSelector(state => state.Slice.youtubearr)
+  const displays = {
+    like: videoarr.findIndex(item => item.keyvideo === keyvideo) === -1 ? link.like : videoarr.find(item => item.keyvideo === keyvideo).like,
+    icon: videoarr.findIndex(item => item.keyvideo === keyvideo) === -1 ? "like2" : (videofav.findIndex(item => item.keyvideo === keyvideo && item.userid === userid) === -1 ? "like2" : "like1"),
+    subcriber: subscribes.findIndex(item => item.youtuberid === youtuber.id && item.userid === userid) === -1 ? false : true,
+    sosubcribe: youtubearr.findIndex(item => item.id === youtuber.id) === -1 ? youtuber.subcriber : youtubearr.find(item => item.id === youtuber.id).subcriber,
+  }
+  const [isSubscribed, setIsSubscribed] = useState(displays.subcriber);
   const dispatch = useDispatch();
   const handlePress = () => {
     setIsSubscribed(prevState => !prevState);
@@ -40,13 +49,11 @@ export default function WatchingScreen(props) {
           if (!isLiked) {
             dispatch(tangLike({ keySlice: keyvideo, userid: userid }));
             setisLiked(true)
-            setIcon("like1")
             
           }
           else if (isLiked) {
             dispatch(giamLike({ keySlice: keySlice, userid: userid }))
             setisLiked(false)
-            setIcon("like2")
           }
         }
           }
@@ -68,12 +75,12 @@ export default function WatchingScreen(props) {
       />
       <Text style={styles.text}>{link.title}</Text>
       <View style={[styles.border, {justifyContent:'center'}]}>
-        <ButtonReact icon={icon} like={likeSelector} />
+        <ButtonReact icon={displays.icon} like={displays.like} />
       </View>
       <View style={[styles.border, {justifyContent:'flex-start'}]}>
         <Image style={{height: 50, width: 50, borderRadius: 20, alignSelf:'center', marginLeft: 5, resizeMode: 'center'}} source={{uri: youtuber.icon}} />
         <Text style={[styles.text, { marginLeft: 20, alignSelf: 'center', }]}>{youtuber.name}</Text>
-        <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: 30, fontWeight: 'bold' }}>{youtuber.subcriber}</Text>
+        <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: 30, fontWeight: 'bold' }}>{displays.sosubcribe}</Text>
         {userid !== youtuber.id && (
           <TouchableOpacity
             onPress={handlePress}

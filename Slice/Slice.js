@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import VideoData from '../Data/VideoData';
-
+import Youtuber from '../Data/Youtuber';
 function generateRandomString(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -16,6 +16,7 @@ const likeSlice = createSlice({
     initialState: {
         keyvideo: '',
         videoarr: VideoData,
+        youtubearr: Youtuber,
         numLike: 0,
         favoritevideos: [],
         subcribes: [],
@@ -54,18 +55,22 @@ const likeSlice = createSlice({
         subscribe: (state, action) => {
             const { userid, youtuberid } = action.payload;
             const issubscribe = state.subcribes.findIndex(item => item.userid === userid && item.youtuberid === youtuberid);
-            if (issubscribe === -1) {
+            const indexsub = state.youtubearr.findIndex(item => item.id === youtuberid)
+            if (issubscribe === -1 && indexsub !== -1) {
+                state.youtubearr[indexsub].subcriber +=1
                 state.subcribes.push({ userid, youtuberid });
-                console.log(state.subcribes)
+                console.log(state.youtubearr[indexsub].subcriber)
             }
             
         },
         notsubscribe: (state, action) => {
             const { userid, youtuberid } = action.payload;
-            const issubscribe = state.subcribes.findIndex(item => item.userid === userid && item.youtuberid === youtuberid)
-            if (issubscribe !== -1) {
+            const issubscribe = state.subcribes.find(item => item.userid === userid && item.youtuberid === youtuberid)
+            const indexsub = state.youtubearr.findIndex(item => item.id === youtuberid)
+            if (issubscribe !== -1 && indexsub !== -1) {
+                state.youtubearr[indexsub].subcriber -=1
                 state.subcribes = state.subcribes.filter(item => item.userid !== userid && item.youtuberid !== youtuberid)
-                console.log(state.subcribes)
+                console.log(state.youtubearr[indexsub].subcriber)
             }
         }
     }
