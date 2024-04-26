@@ -2,19 +2,17 @@
   import { RefreshControl, StyleSheet, Text, View } from 'react-native';
   import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
   import HomeScreen from '../Screen/HomeScreen';
-  import { FontAwesome5 } from '@expo/vector-icons';
-  import { Feather } from '@expo/vector-icons';
   import { createStackNavigator } from '@react-navigation/stack';
   import WatchingScreen from '../Screen/WatchingScreen';
   import FavoriteScreen from '../Screen/FavoriteScreen';
   import { useState } from 'react';
-  import { MaterialIcons } from '@expo/vector-icons';
+  import { MaterialIcons, AntDesign, FontAwesome5, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
   import Playlist from '../Component/Playlist';
   import Slice from '../Slice/Slice';
   import LoginScreen from '../Screen/LoginScreen';
 import Youtuber from '../Data/Youtuber';
 import SearchScreen from '../Screen/SearchScreen';
-import { AntDesign } from '@expo/vector-icons';
+import SubscriberScreen from '../Screen/SubscribeScreen';
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -34,7 +32,10 @@ import { AntDesign } from '@expo/vector-icons';
                 iconName = focused ? 'user' : 'user'
                 return <AntDesign name="user" size={24} color="black" />;
               }
-              
+              else if(props.route.name === 'Subscribe') {
+                iconName = focused ? 'robot-love' : 'robot-love'
+                return <MaterialCommunityIcons name="robot-love" size={24} color="black" />
+              }
           }
       };
   };
@@ -47,8 +48,10 @@ const BottomTab = (props) => {
       return (
         <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
           <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false}} initialParams={{userid: id }} />
-          <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Yêu thích', headerShown: false }} initialParams={{userid: id }}/>
+          <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Video Yêu thích', headerShown: true, headerTitleAlign: 'center', }} initialParams={{userid: id }}/>
+          <Tab.Screen name='Subscribe' component={SubscriberScreen} options={{ title: 'Kênh đăng ký', headerShown: true, headerTitleAlign: 'center' }} initialParams={{userid: id}} />
           <Tab.Screen name='user' component={FavoriteScreen} options={{ title: 'Thông Tin Cá Nhân', headerShown: false }} />
+          
         </Tab.Navigator>
       )
     }

@@ -58,8 +58,8 @@ const likeSlice = createSlice({
             const indexsub = state.youtubearr.findIndex(item => item.id === youtuberid)
             if (issubscribe === -1 && indexsub !== -1) {
                 state.youtubearr[indexsub].subcriber +=1
-                state.subcribes.push({ userid, youtuberid });
-                console.log(state.youtubearr[indexsub].subcriber)
+                state.subcribes.push({ userid, youtuberid, idsubs: generateRandomString(12) });
+                console.log(state.subcribes)
             }
             
         },
@@ -69,8 +69,8 @@ const likeSlice = createSlice({
             const indexsub = state.youtubearr.findIndex(item => item.id === youtuberid)
             if (issubscribe !== -1 && indexsub !== -1) {
                 state.youtubearr[indexsub].subcriber -=1
-                state.subcribes = state.subcribes.filter(item => item.userid !== userid && item.youtuberid !== youtuberid)
-                console.log(state.youtubearr[indexsub].subcriber)
+                state.subcribes = state.subcribes.filter(item => item.userid === userid && item.youtuberid !== youtuberid)
+                console.log(state.subcribes)
             }
         }
     }

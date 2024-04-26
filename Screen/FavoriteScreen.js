@@ -13,9 +13,18 @@ export default function FavoriteScreen(props) {
     const listfav = useSelector(state => state.Slice.favoritevideos)
     const { userid } = props.route.params
     const filteredList = listfav.filter(item => item.userid === userid);
+
+    if (filteredList.length === 0) {
+        return (
+            <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+                <Text style={styles.noFavoriteText}>Không có video yêu thích.</Text>
+            </View>
+        );
+    }
+
     return (
         <FlatList
-            style={{top: 50}}
+            style={{top: 0}}
             data={filteredList}
             keyExtractor={(item) => item.idfav.toString()}
             renderItem={({ item }) =>
@@ -65,5 +74,10 @@ const styles = StyleSheet.create({
         fontWeight: '0.5',
         textAlign: 'left',
         marginTop: 5,
-    }
+    },
+    noFavoriteText: {
+        fontSize: 16,
+        color: 'gray',
+        textAlign: 'center',
+    },
 });

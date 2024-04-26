@@ -9,17 +9,19 @@ import { giamLike, tangLike, subscribe, notsubscribe } from "../Slice/Slice";
 import { useDispatch, useSelector } from "react-redux";
 export default function WatchingScreen(props) {
   const { keyvideo, userid } = props.route.params
+
 //youtuber va video
   const link = VideoData.find(item => item.keyvideo === keyvideo)
   const cutLink = link.youtubelink.substring(17, 28).toString()
   const youtuber = Youtuber.find(item => item.id === link.idYoutuber)
+
 //user: like
   const keySlice = useSelector(state => state.Slice.keyvideo)
   const [isLiked, setisLiked] = useState(false)
   const videoarr = useSelector(state => state.Slice.videoarr)
   const videofav = useSelector(state => state.Slice.favoritevideos)
+
   //user: subscribe
- 
   const subscribes = useSelector(state => state.Slice.subcribes)
   const youtubearr = useSelector(state => state.Slice.youtubearr)
   const displays = {
@@ -40,7 +42,22 @@ export default function WatchingScreen(props) {
       dispatch(notsubscribe({userid: userid, youtuberid: youtuber.id}))
     }
   };
-
+// Format number to K, M, B, T
+  const formatNumber = (number) => {
+    if (number >= 1000000000000) {
+      return (number / 1000000000000).toFixed(0) + 'T';
+    }
+    else if (number >=  1000000000) {
+      return (number / 1000000000).toFixed(0) + 'B';
+    }
+    else if (number >= 1000000) {
+      return (number / 1000000).toFixed(0) + 'M';
+    }
+    else if (number >= 1000) {
+      return (number / 1000).toFixed(0) + 'K';
+    }
+    return number.toString();
+  }
 
   const ButtonReact = (props) => {
     return (
@@ -60,7 +77,7 @@ export default function WatchingScreen(props) {
       >
         
         <AntDesign name={props.icon} size={24} color="black" />
-        <Text style={{ marginLeft: 20 }}>{ props.like}</Text>
+        <Text style={{ marginLeft: 20 }}>{ formatNumber(props.like)}</Text>
         </TouchableOpacity>
         
       
@@ -80,7 +97,7 @@ export default function WatchingScreen(props) {
       <View style={[styles.border, {justifyContent:'flex-start'}]}>
         <Image style={{height: 50, width: 50, borderRadius: 20, alignSelf:'center', marginLeft: 5, resizeMode: 'center'}} source={{uri: youtuber.icon}} />
         <Text style={[styles.text, { marginLeft: 20, alignSelf: 'center', }]}>{youtuber.name}</Text>
-        <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: 30, fontWeight: 'bold' }}>{displays.sosubcribe}</Text>
+        <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: 30, fontWeight: 'bold' }}>{formatNumber(displays.sosubcribe)}</Text>
         {userid !== youtuber.id && (
           <TouchableOpacity
             onPress={handlePress}
