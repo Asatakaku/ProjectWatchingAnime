@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
-import Youtuber  from '../Data/Youtuber'; // Chắc chắn import hàm getYoutuberName từ file utils
+import Youtuber  from '../Data/Youtuber';
 import { useSelector } from 'react-redux';
 const getYoutuberName = (id) => {
     const youtuber = Youtuber.find(youtuber => youtuber.id === id);
@@ -16,7 +16,7 @@ export default function FavoriteScreen(props) {
 
     if (filteredList.length === 0) {
         return (
-            <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+            <View style={{flex: 1, justifyContent:'center', alignItems:'center', backgroundColor:'#fff'}}>
                 <Text style={styles.noFavoriteText}>Không có video yêu thích.</Text>
             </View>
         );
@@ -24,7 +24,7 @@ export default function FavoriteScreen(props) {
 
     return (
         <FlatList
-            style={{top: 0}}
+            style={{top: 0, backgroundColor: '#fff'}}
             data={filteredList}
             keyExtractor={(item) => item.idfav.toString()}
             renderItem={({ item }) =>

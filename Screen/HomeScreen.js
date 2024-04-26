@@ -29,7 +29,7 @@ export default function HomeScreen(props) {
   
   return (
     
-    <View style={{ flex: 1 }} >
+    <View style={{ flex: 1, backgroundColor: '#fff' }} >
       <View style={{backgroundColor: '#fff', width: '100%', height: '10%', flexDirection:'row'}}>
       <Image style={styles.image} source={require('../img/logo.png')} />
         <Text style={{ marginLeft: '5%', alignSelf: 'center', fontWeight: 'bold', fontSize: 24 }}>My Anime</Text>

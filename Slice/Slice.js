@@ -33,7 +33,7 @@ const likeSlice = createSlice({
                 state.numLike = state.videoarr[newdataIndex].like;
                 state.favoritevideos.push({ ...state.videoarr[newdataIndex], userid: userid, idfav: generateRandomString(12) });
                 
-                console.log(state.favoritevideos)
+                console.log(state.videoarr[newdataIndex].like)
             }
             
         },
@@ -49,7 +49,7 @@ const likeSlice = createSlice({
                 
                 // data.setFavoriteData(state.favoritevideos)
                 // console.log(data.getFavoriteData())
-                console.log(state.favoritevideos)
+                console.log(state.videoarr[newdata].like)
             }
         },
         subscribe: (state, action) => {
@@ -70,7 +70,6 @@ const likeSlice = createSlice({
             if (issubscribe !== -1 && indexsub !== -1) {
                 state.youtubearr[indexsub].subcriber -=1
                 state.subcribes = state.subcribes.filter(item => item.userid === userid && item.youtuberid !== youtuberid)
-                console.log(state.subcribes)
             }
         }
     }

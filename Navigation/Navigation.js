@@ -13,6 +13,7 @@
 import Youtuber from '../Data/Youtuber';
 import SearchScreen from '../Screen/SearchScreen';
 import SubscriberScreen from '../Screen/SubscribeScreen';
+import InformationScreen from '../Screen/InformationScreen';
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -50,7 +51,7 @@ const BottomTab = (props) => {
           <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false}} initialParams={{userid: id }} />
           <Tab.Screen name='Favorite' component={FavoriteScreen} options={{ title: 'Video Yêu thích', headerShown: true, headerTitleAlign: 'center', }} initialParams={{userid: id }}/>
           <Tab.Screen name='Subscribe' component={SubscriberScreen} options={{ title: 'Kênh đăng ký', headerShown: true, headerTitleAlign: 'center' }} initialParams={{userid: id}} />
-          <Tab.Screen name='user' component={FavoriteScreen} options={{ title: 'Thông Tin Cá Nhân', headerShown: false }} />
+          <Tab.Screen name='user' component={InformationScreen} options={{ title: 'Thông Tin Cá Nhân', headerShown: false }} initialParams={{userid: id}}/>
           
         </Tab.Navigator>
       )

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
 import Youtuber from "../Data/Youtuber";
+import { useSelector } from "react-redux";
 
 const ThongTinDienVao = ({ text, placeholder, onChangeText, value, bool }) => {
   return (
@@ -20,6 +21,7 @@ const ThongTinDienVao = ({ text, placeholder, onChangeText, value, bool }) => {
 export default function LoginScreen(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const youtubearr = useSelector(state => state.Slice.youtubearr)
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={ require('../img/logo.png')} />
@@ -40,7 +42,7 @@ export default function LoginScreen(props) {
 
           <TouchableOpacity
         onPress={() => {
-          const youtuber = Youtuber.find(item => item.username === username && item.password === password)
+          const youtuber = youtubearr.find(item => item.username === username && item.password === password)
           if (youtuber) {         
             props.navigation.navigate('BottomTab', { id: youtuber.id });
             console.log('dang nhap thanh cong')
