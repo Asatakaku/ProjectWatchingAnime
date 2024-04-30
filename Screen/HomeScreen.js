@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, ScrollView, 
 import VideoData  from '../Data/VideoData';
 import Youtuber from '../Data/Youtuber';
 import { Feather } from '@expo/vector-icons';
-import Playlist from '../Component/Playlist';
+import Playlist from '../Component/ForHomeScreen/Playlist';
 import Login from './LoginScreen';
 import LoginScreen from './LoginScreen';
 

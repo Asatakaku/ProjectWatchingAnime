@@ -3,7 +3,6 @@ import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
-import { FlatList } from "react-native-gesture-handler";
 import UserVideo from "../Component/ForInformationScreen/UserVideo";
 
 

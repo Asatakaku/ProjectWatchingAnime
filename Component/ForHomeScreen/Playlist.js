@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
-import VideoData from '../Data/VideoData';
-import Youtuber from '../Data/Youtuber';
+import VideoData from '../../Data/VideoData';
+import Youtuber from '../../Data/Youtuber';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -9,23 +9,14 @@ const getYoutuberName = (id) => {
   return youtuber ? youtuber.name : 'Unknown Youtuber';
 };
 
-const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
 
 export default function Playlist(props) {
   const videoarr = useSelector(state => state.Slice.videoarr);
   const { userid } = props;
 
-  const shuffledData = shuffleArray(videoarr);
-
   return (
     <FlatList
-      data={shuffledData}
+      data={videoarr}
       keyExtractor={(item) => item.keyvideo.toString()}
       renderItem={({ item }) => (
         <TouchableOpacity

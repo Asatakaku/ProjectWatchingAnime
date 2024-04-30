@@ -7,7 +7,7 @@
   import FavoriteScreen from '../Screen/FavoriteScreen';
   import { useState } from 'react';
   import { MaterialIcons, AntDesign, FontAwesome5, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
-  import Playlist from '../Component/Playlist';
+  import Playlist from '../Component/ForHomeScreen/Playlist';
   import Slice from '../Slice/Slice';
   import LoginScreen from '../Screen/LoginScreen';
 import Youtuber from '../Data/Youtuber';

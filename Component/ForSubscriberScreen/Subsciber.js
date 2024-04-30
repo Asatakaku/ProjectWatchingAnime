@@ -23,7 +23,12 @@ export default function Subscriber(props){
                     keyExtractor={(item) => item.idsubs.toString()}
                     renderItem={({ item }) =>
                     (
-                        <TouchableOpacity style={styles.anObject}>
+                        <TouchableOpacity style={styles.anObject}
+                            // onPress={() => 
+                        
+                            // }
+                        
+                        >
                             <Image style={styles.image} source={{ uri: youtube.find(itemyb => itemyb.id === item.youtuberid).icon }} />
                             <Text>{youtube.find(itemyb => itemyb.id === item.youtuberid).name}</Text>
                         </TouchableOpacity>

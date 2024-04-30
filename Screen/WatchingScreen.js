@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import YoutubePlayer from "react-native-youtube-iframe";
 import VideoData from "../Data/VideoData";
 import Youtuber from "../Data/Youtuber";
-import Playlist from "../Component/Playlist";
+import Playlist from "../Component/ForHomeScreen/Playlist";
 import { AntDesign } from '@expo/vector-icons';
 import { giamLike, tangLike, subscribe, notsubscribe } from "../Slice/Slice";
 import { useDispatch, useSelector } from "react-redux";
