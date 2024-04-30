@@ -45,16 +45,16 @@ export default function WatchingScreen(props) {
 // Format number to K, M, B, T
   const formatNumber = (number) => {
     if (number >= 1000000000000) {
-      return (number / 1000000000000).toFixed(0) + 'T';
+      return (number / 1000000000000).toFixed(2) + 'T';
     }
     else if (number >=  1000000000) {
-      return (number / 1000000000).toFixed(0) + 'B';
+      return (number / 1000000000).toFixed(2) + 'B';
     }
     else if (number >= 1000000) {
-      return (number / 1000000).toFixed(0) + 'M';
+      return (number / 1000000).toFixed(2) + 'M';
     }
     else if (number >= 1000) {
-      return (number / 1000).toFixed(0) + 'K';
+      return (number / 1000).toFixed(2) + 'K';
     }
     return number.toString();
   }

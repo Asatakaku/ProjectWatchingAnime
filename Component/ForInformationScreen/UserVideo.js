@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 export default function UserVideo(props) {
     const { userid } = props.userid;
-    const videoarr = useSelector(state => state.Slice.videoarr);
     const VideoList = props.VideoList;
     console.log(VideoList)
     return (
