@@ -86,12 +86,10 @@ const likeSlice = createSlice({
             const existed = state.historywatch.findIndex(item => item.keyvideo === keyvideo && item.userid === userid)
             if (existed === -1) {
                 state.historywatch.unshift({ keyvideo, userid, idhistory: generateRandomString(12) });
-                console.log(state.historywatch)
             }
             else {
-                state.historywatch = state.historywatch.filter(item => item.keyvideo !== keyvideo && item.userid === userid)
-                state.historywatch.unshift({ keyvideo, userid, idhistory: generateRandomString(12) });
-                console.log(state.historywatch)
+                const item = state.historywatch.splice(existed, 1)[0];
+                state.historywatch.unshift(item);
             }
         },
     }

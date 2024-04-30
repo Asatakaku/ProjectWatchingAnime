@@ -70,7 +70,7 @@ export default function InformationScreen(props) {
             <View style={styles.VideoListview}>
                  <Text style={{ fontWeight: '500' }}>Video của bạn</Text>
                 {filteredVideo.length === 0 ? (
-                    <Text style={{ textAlign:'center'}}>Không có video nào</Text>
+                    <Text style={{ textAlign:'justify'}}>Không có video nào</Text>
                 ) : (
                     <UserVideo navigation={props.navigation} userid={userid} VideoList={filteredVideo} />
                 )}
@@ -78,7 +78,7 @@ export default function InformationScreen(props) {
             <View style={styles.HistoryListview}>
                 <Text style={{ fontWeight: '500' }}>Lịch sử xem</Text>
                 {historywatch.length === 0 ? (
-                    <Text style={{ textAlign: 'center' }}>Bạn chưa coi lịch sử nào</Text>
+                    <Text style={{ textAlign: 'justify' }}>Bạn chưa có lịch sử nào</Text>
                 ) : (
                     <HistoryWatch navigation={props.navigation} userid={userid} HistoryList={historywatch} />
                 )}
