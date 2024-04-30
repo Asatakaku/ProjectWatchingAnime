@@ -14,6 +14,7 @@ import Youtuber from '../Data/Youtuber';
 import SearchScreen from '../Screen/SearchScreen';
 import SubscriberScreen from '../Screen/SubscribeScreen';
 import InformationScreen from '../Screen/InformationScreen';
+import { useSelector } from 'react-redux';
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -45,7 +46,8 @@ import InformationScreen from '../Screen/InformationScreen';
 
 export default function Navigator() {
 const BottomTab = (props) => {
-  const {id} = props.route.params
+  const { id } = props.route.params
+  const youtuber = useSelector(state => state.Slice. youtubearr)
       return (
         <Tab.Navigator screenOptions={(props) => IconBottomTab(props)}>
           <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Trang chủ', headerShown: false}} initialParams={{userid: id }} />

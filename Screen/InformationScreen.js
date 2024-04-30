@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
 import { FlatList } from "react-native-gesture-handler";
+import UserVideo from "../Component/ForInformationScreen/UserVideo";
 
 
 export default function InformationScreen(props) { 
@@ -14,7 +15,6 @@ export default function InformationScreen(props) {
     const [avatar, setAvatar] = useState(user.icon);
     const videoarr = useSelector(state => state.Slice.videoarr)
     const filteredVideo = videoarr.filter(item => item.idYoutuber === userid)
-    console.log(userid)
     const pickImage = async () => {
       // No permissions request is necessary for launching the image library
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -28,6 +28,8 @@ export default function InformationScreen(props) {
         
     };
     
+
+
     return (
         <View style={styles.container}>
             <Image source={{uri: Coverimage}} style={styles.anhbia} />
@@ -59,26 +61,12 @@ export default function InformationScreen(props) {
             </TouchableOpacity>
             <Text style={styles.name}>{user.name}</Text>
             <View style={styles.viewyourvideos}>
-            <Text style={{ fontWeight: '500' }}>Video của bạn</Text>
-                <FlatList
-                    data={filteredVideo}
-                    keyExtractor={(item) => item.keyvideo.toString()}
-                    renderItem={({item}) => (
-                        <TouchableOpacity
-                            onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo, userid: userid })}
-                        >
-                            <View style={{paddingLeft: 20, flexDirection: 'column'}}>
-                            <Image
-                                style={{height: '100%', width: 200}}
-                                source={{ uri: item.thumbnail }}
-                                />
-                                <Text></Text>
-                            </View>
-                               
-                            </TouchableOpacity>
-                        )}
-                    horizontal
-                />
+                 <Text style={{ fontWeight: '500' }}>Video của bạn</Text>
+                {filteredVideo.length === 0 ? (
+                    <Text style={{ textAlign:'center'}}>Không có video nào</Text>
+                ) : (
+                    <UserVideo navigation={props.navigation} userid={userid} VideoList={filteredVideo} />
+                )}
             </View>
                 
             </View>
@@ -119,12 +107,9 @@ const styles = StyleSheet.create({
     viewyourvideos: {
         top: 250,
         alignSelf: 'flex-start',
-        height: 200,
+        height: 300,
         width: '100%',
-        padding: 20,
+        paddingLeft: 10,
         gap:20,
     },
-    listvideos: {
-        
-    }
 })

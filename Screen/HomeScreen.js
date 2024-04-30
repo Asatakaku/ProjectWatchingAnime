@@ -16,9 +16,7 @@ export default function HomeScreen(props) {
     return (
       <TouchableOpacity
         style={{ marginLeft: left, top: top }}
-        onPress={() => {
-          props.navigation.navigate(nav)
-        }}
+        
       >
         <View>
           <Feather name={nameicon} size={30} color="black" />
@@ -35,7 +33,16 @@ export default function HomeScreen(props) {
         <Text style={{ marginLeft: '5%', alignSelf: 'center', fontWeight: 'bold', fontSize: 24 }}>My Anime</Text>
         <ButtonA nameicon={"search"} left='18%' top='5.5%' nav='Search'/>
         <ButtonA nameicon={"bell"} left='5%' top='5.5%' />
-        <Image style={{width: '17%', height: 50, right: '5%', marginTop: 15, resizeMode: 'contain'}} source={{uri: link.icon}} />
+        <TouchableOpacity
+          style={{ width: 450, height: 50, right: '5%' }}
+          onPress={() => { 
+            props.navigation.navigate('user', { userid: userid })
+          
+          }}
+        >
+        <Image style={{width: '17%', height: 50, marginTop: 15, resizeMode: 'contain'}} source={{uri: link.icon}} />
+        </TouchableOpacity>
+        
       </View>
       <Playlist navigation={props.navigation} userid={ userid} />
       
