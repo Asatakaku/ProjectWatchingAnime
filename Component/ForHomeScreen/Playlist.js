@@ -2,8 +2,8 @@ import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react
 import VideoData from '../../Data/VideoData';
 import Youtuber from '../../Data/Youtuber';
 import React from 'react';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addhistory } from '../../Slice/Slice';
 const getYoutuberName = (id) => {
   const youtuber = Youtuber.find(youtuber => youtuber.id === id);
   return youtuber ? youtuber.name : 'Unknown Youtuber';
@@ -13,14 +13,17 @@ const getYoutuberName = (id) => {
 export default function Playlist(props) {
   const videoarr = useSelector(state => state.Slice.videoarr);
   const { userid } = props;
-
+  const dispatch = useDispatch();
   return (
     <FlatList
       data={videoarr}
       keyExtractor={(item) => item.keyvideo.toString()}
       renderItem={({ item }) => (
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Watch', { keyvideo: item.keyvideo, userid: userid })}
+          onPress={() => {
+            props.navigation.navigate('Watch', { keyvideo: item.keyvideo, userid: userid });
+            dispatch(addhistory({ userid: userid, keyvideo: item.keyvideo }));
+          }}
         >
           <View style={styles.container}>
             <Image

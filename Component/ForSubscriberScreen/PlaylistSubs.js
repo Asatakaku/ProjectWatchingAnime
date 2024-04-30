@@ -12,8 +12,7 @@ export default function PlaylistSubs(props) {
     const subcribes = useSelector(state => state.Slice.subcribes);
     const videoarr = useSelector(state => state.Slice.videoarr);
     
-    const filteredSubList = subcribes.filter(item => item.userid === userid);
-    const youtuberIds = filteredSubList.map(item => item.youtuberid);
+    const youtuberIds = subcribes.filter(item => item.userid === userid).map(item => item.youtuberid);
     const filteredVideoList = videoarr.filter(item => youtuberIds.includes(item.idYoutuber));
     console.log(filteredVideoList)
     return (

@@ -28,6 +28,7 @@ const likeSlice = createSlice({
         numLike: 0,
         favoritevideos: [],
         subcribes: [],
+        historywatch: [],
     },
 
     reducers: {
@@ -79,8 +80,21 @@ const likeSlice = createSlice({
                 state.youtubearr[indexsub].subcriber -=1
                 state.subcribes = state.subcribes.filter(item => item.userid === userid && item.youtuberid !== youtuberid)
             }
-        }
+        },
+        addhistory: (state, action) => {
+            const { keyvideo, userid } = action.payload;
+            const existed = state.historywatch.findIndex(item => item.keyvideo === keyvideo && item.userid === userid)
+            if (existed === -1) {
+                state.historywatch.unshift({ keyvideo, userid, idhistory: generateRandomString(12) });
+                console.log(state.historywatch)
+            }
+            else {
+                state.historywatch = state.historywatch.filter(item => item.keyvideo !== keyvideo && item.userid === userid)
+                state.historywatch.unshift({ keyvideo, userid, idhistory: generateRandomString(12) });
+                console.log(state.historywatch)
+            }
+        },
     }
 })
 export default likeSlice.reducer
-export const { tangLike, giamLike, subscribe, notsubscribe } = likeSlice.actions
+export const { tangLike, giamLike, subscribe, notsubscribe, addhistory } = likeSlice.actions
