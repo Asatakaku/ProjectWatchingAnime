@@ -4,7 +4,6 @@ import { addhistory } from "../../Slice/Slice";
 export default function UserVideo(props) {
     const  userid  = props.userid;
     const VideoList = props.VideoList;
-    const historywatch = useSelector(state => state.Slice.historywatch)
     const dispatch = useDispatch();
     return (
         <FlatList

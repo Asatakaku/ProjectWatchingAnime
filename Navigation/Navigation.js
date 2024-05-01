@@ -15,6 +15,7 @@ import SearchScreen from '../Screen/SearchScreen';
 import SubscriberScreen from '../Screen/SubscribeScreen';
 import InformationScreen from '../Screen/InformationScreen';
 import { useSelector } from 'react-redux';
+import YoutuberInfo from '../Screen/YoutuberInfo';
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -66,6 +67,7 @@ const BottomTab = (props) => {
           <Stack.Screen name='Watch' component={WatchingScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Playlist' component={Playlist} options={{ headerShown: false }} />
           <Stack.Screen name='Search' component={SearchScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='YoutuberInfo' component={YoutuberInfo} options={{ headerShown: false }} />
       </Stack.Navigator>
       </NavigationContainer>
     );

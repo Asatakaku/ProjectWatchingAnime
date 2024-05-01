@@ -58,7 +58,7 @@ export default function WatchingScreen(props) {
     }
     return number.toString();
   }
-
+//tang va giam like
   const ButtonReact = (props) => {
     return (
         <TouchableOpacity style={{flexDirection: 'row'}}
@@ -80,7 +80,6 @@ export default function WatchingScreen(props) {
         <Text style={{ marginLeft: 20 }}>{ formatNumber(props.like)}</Text>
         </TouchableOpacity>
         
-      
     );
   }
   return (
@@ -94,10 +93,14 @@ export default function WatchingScreen(props) {
       <View style={[styles.border, {justifyContent:'center'}]}>
         <ButtonReact icon={displays.icon} like={displays.like} />
       </View>
-      <View style={[styles.border, {justifyContent:'flex-start'}]}>
+      <View style={[styles.border, { justifyContent: 'flex-start' }]}>
+        <TouchableOpacity
+          style={{ flexDirection: 'row' }}
+        onPress={() => props.navigation.navigate('YoutuberInfo', { youtuberid: youtuber.id})}>
         <Image style={{height: 50, width: 50, borderRadius: 20, alignSelf:'center', marginLeft: 5, resizeMode: 'center'}} source={{uri: youtuber.icon}} />
         <Text style={[styles.text, { marginLeft: 20, alignSelf: 'center', }]}>{youtuber.name}</Text>
         <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: 30, fontWeight: 'bold' }}>{formatNumber(displays.sosubcribe)}</Text>
+          </TouchableOpacity>
         {userid !== youtuber.id && (
           <TouchableOpacity
             onPress={handlePress}
