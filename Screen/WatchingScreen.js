@@ -96,7 +96,7 @@ export default function WatchingScreen(props) {
       <View style={[styles.border, { justifyContent: 'flex-start' }]}>
         <TouchableOpacity
           style={{ flexDirection: 'row' }}
-        onPress={() => props.navigation.navigate('YoutuberInfo', { youtuberid: youtuber.id})}>
+        onPress={() => props.navigation.navigate('YoutuberInfo', { youtuberid: youtuber.id, userid: userid })}>
         <Image style={{height: 50, width: 50, borderRadius: 20, alignSelf:'center', marginLeft: 5, resizeMode: 'center'}} source={{uri: youtuber.icon}} />
         <Text style={[styles.text, { marginLeft: 20, alignSelf: 'center', }]}>{youtuber.name}</Text>
         <Text style={{ fontSize: 12, alignSelf: 'center', marginLeft: 30, fontWeight: 'bold' }}>{formatNumber(displays.sosubcribe)}</Text>

@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     height: 250,
     borderWidth: 1,
     borderRadius: 20,
+    resizeMode:'center',
   },
   videoTitle: {
     fontSize: 16,
